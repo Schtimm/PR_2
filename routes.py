@@ -1,7 +1,3 @@
-from bottle import route, view
+from views_python import alg_crascal_page, home_page
 
-@route('/')
-@route('/home')
-@view('home')
-def home():
-    return dict()
+# Реализуйте какие-то дополнительные routes здесь

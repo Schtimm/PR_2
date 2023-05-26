@@ -1,5 +1,13 @@
 % rebase('layout.tpl', title="Домашняя страница")
 
+
+<header class="py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-semibold text-gray-800 mb-4">Добро пожаловать на сайт по решению задач, связанных с алгоритмами обхода графов!</h1>
+      <p class="text-lg text-gray-700">Здесь вы найдете инструменты для проверки правильности нахождения остовных деревьев с помощью различных алгоритмов.</p>
+    </div>
+</header>
+
 <section class="bg-white py-12">
     <div class="container mx-auto px-4">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">Алгоритм поиска в ширину</h2>
@@ -20,7 +28,7 @@
     <div class="container mx-auto px-4">
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">Алгоритм Краскала</h2>
       <p class="text-lg text-gray-700 mb-4">Описание алгоритма Краскала и его применение для нахождения кратчайшего остовного дерева.</p>
-      <a href="#" class="text-blue-500 font-semibold">Подробнее</a>
+      <a href="/crascal" class="text-blue-500 font-semibold">Подробнее</a>
     </div>
   </section>
 
