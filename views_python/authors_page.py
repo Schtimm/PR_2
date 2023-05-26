@@ -1,8 +1,7 @@
 from bottle import route, view
 
 
-@route('/')
-@route('/home')
-@view('home')
+@route('/authors')
+@view('authors')
 def home():
     return dict()

@@ -17,7 +17,7 @@
             <div class="w-full h-32 p-2 bg-white rounded shadow  h-full flex items-center justify-center">
                 <div class="mermaid">
                     graph LR
-                    A -- 5 --- B
+                    Тут -- будет --- A[ваш граф]
                 </div>
 
             </div>

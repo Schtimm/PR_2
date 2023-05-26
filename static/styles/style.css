@@ -3,3 +3,7 @@
 .mermaid{
     display: inline-block
 }
+
+img{
+    border-radius: 12px;
+}
