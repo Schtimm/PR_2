@@ -1,13 +1,13 @@
 % rebase('layout.tpl', title="Метод Краскала")
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script src="/static/scripts/mermaid.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         mermaid.initialize({startOnLoad: true});
     });</script>
 
 <div class="px-12">
-    <h1 class="text-3xl font-bold mb-4">Алгоритм Краскала</h1>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-12">Алгоритм Краскала</h2>
 
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
@@ -25,13 +25,13 @@
         </div>
         <div class="sm:col-span-6 flex justify-end">
             <div class="flex gap-x-4">
-                <button class="px-4 py-2 bg-blue-500 text-white rounded shadow">Решить</button>
                 <button class="px-4 py-2 bg-blue-500 text-white rounded shadow">Сгенерировать задачу</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded shadow">Решить</button>
             </div>
         </div>
     </div>
 
-    <h2 class="text-2xl font-bold mb-4">Пример</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-12">Пример</h2>
 
     <div class="mermaid">
         graph LR
