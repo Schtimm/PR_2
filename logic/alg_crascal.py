@@ -5,6 +5,8 @@ def check_matrix(weight_matrix: List[List[float]]):
     """Проверка, на то что матрица соответстыет для данной задачи"""
     for arr in weight_matrix:
         assert len(arr) == len(weight_matrix), "Матрица не является квадратной"
+        for el in arr:
+            assert el >= 0, "В матрице не должно быть отрицательных чисел"
 
 
 def crascal_solve(weight_matrix: List[List[float]]) -> List[Tuple[int, int, float]]:
