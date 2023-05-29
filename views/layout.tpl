@@ -14,7 +14,7 @@
     <div class="container mx-auto flex items-center justify-between px-4">
       <a href="/" class="text-white text-lg font-semibold">Главная</a>
       <div>
-        <a href="#" class="text-white px-4">Алгоритм поиска в ширину</a>
+        <a href="/breadth_first" class="text-white px-4">Алгоритм поиска в ширину</a>
         <a href="#" class="text-white px-4">Алгоритм поиска в глубину</a>
         <a href="/crascal" class="text-white px-4">Алгоритм Краскала</a>
         <a href="/authors" class="text-white px-4">Об авторах</a>
