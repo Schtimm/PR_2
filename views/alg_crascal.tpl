@@ -6,12 +6,26 @@
         mermaid.initialize({startOnLoad: true});
     });</script>
 
+<script>
+
+    /// Форматирование строки матрицы
+    function formatMatrix(value){
+        return value.replace(' ', '') // Удаление всех пробелов, которые вводит пользователь
+    }
+
+    /// Проверка матрицы на корректность
+    function isCorrectMatrix(value){
+        console.log(value)
+
+    }
+</script>
+
 <div class="px-12">
     <h2 class="text-3xl font-semibold text-gray-800 my-12">Алгоритм Краскала</h2>
 
     <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
-        <textarea class="w-full h-32 p-2 bg-white rounded shadow h-full"
+        <textarea oninput="this.value = formatMatrix(this.value); isCorrectMatrix(this.value);" class="w-full h-32 p-2 bg-white rounded shadow h-full"
                   placeholder="Введите матрицу весов ребер, разделяя элементы запятыми и строки переносами строки"></textarea>
         </div>
         <div class="sm:col-span-3">

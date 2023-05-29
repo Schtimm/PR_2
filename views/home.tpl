@@ -3,7 +3,7 @@
 
 <header class="py-16 bg-blue-500 text-white">
     <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-semibold mb-4">Добро пожаловать на страницу Графовых Алгоритмов</h1>
+        <h1 class="text-4xl font-semibold mb-4">Добро пожаловать на страницу Решения графов </h1>
         <p class="text-lg">Исследуйте мир графовых алгоритмов и решайте задачи, связанные с графами.</p>
     </div>
 </header>
@@ -11,7 +11,7 @@
 <!-- Секция с особенностями -->
 <section id="features" class="py-20">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-semibold text-gray-800 mb-12">Особенности</h2>
+        <h2 class="text-3xl font-semibold text-gray-800 mb-12">Варианты решений</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <!-- Особенность 1 -->

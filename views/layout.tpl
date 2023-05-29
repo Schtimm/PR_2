@@ -7,6 +7,7 @@
     <title>{{title}}</title>
     <script src="/static/scripts/tailwindcss.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/styles/style.css"/>
+    <link rel="icon" type="image/x-icon" href="/static/images/logo.svg">
 </head>
 
 <body class="bg-gray-100">
