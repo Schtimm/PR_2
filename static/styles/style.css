@@ -7,3 +7,12 @@
 img{
     border-radius: 12px;
 }
+
+textarea{
+    min-height: 100px;
+}
+
+.logo{
+    width: 34px;
+    height: 34px;
+}
