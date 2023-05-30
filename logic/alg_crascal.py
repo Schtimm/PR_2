@@ -10,14 +10,13 @@ def check_matrix(weight_matrix: List[List[float]]):
     """Проверка, на то что матрица соответстыет для данной задачи"""
     for arr in weight_matrix:
         assert len(arr) == len(weight_matrix), "Матрица не является квадратной"
-        for  el in arr:
+        for el in arr:
             assert el >= 0, "В матрице не должно быть отрицательных чисел"
     for i in range(len(weight_matrix)):
         for j in range(i, len(weight_matrix)):
-            if (i == j):
+            if i == j:
                 assert weight_matrix[i][j] == 0, "Диоганаль должна быть равна 0"
             assert weight_matrix[i][j] == weight_matrix[j][i], "Матрица не симметрична"
-
 
 
 def find_parent(parent: List[int], i: int) -> int:
@@ -112,7 +111,7 @@ def gen_mermaid_graph(edges: List[Tuple[int, int, float]], minimum_spanning_tree
     graph = "graph LR\n"
     # Проходим по всем рёбрам
     for i, edge in enumerate(edges):
-        graph += f"{edge[0]} --{edge[2]}--- {edge[1]}\n"
+        graph += f"{edge[0] + 1} --{edge[2]}--- {edge[1] + 1}\n"
         if edge in minimum_spanning_tree:
             graph += f"style {edge[0]} fill:#f9f\n"
             graph += f"style {edge[1]} fill:#f9f\n"
@@ -155,7 +154,7 @@ def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[
 
         if x != y:
             minimum_spanning_tree.append((start, end, weight))
-            yield {"message": f"Добавлено ребро {start}{end} (Вес {weight}).",
+            yield {"message": f"Добавлено ребро {start}{end} (Вес {weight})",
                    "graph": gen_mermaid_graph(edges, minimum_spanning_tree)}
             union(parent, rank, x, y)
 
@@ -168,7 +167,7 @@ def generate_matrix_to_solve() -> str:
     :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
     """
     size = randrange(2, 12, 1)
-    matrix = [ ["0"] * size for i in range(size) ]
+    matrix = [["0"] * size for i in range(size)]
     for i in range(size):
         for j in range(i + 1, size):
             matrix[i][j] = str(randrange(0, 20, 1))
