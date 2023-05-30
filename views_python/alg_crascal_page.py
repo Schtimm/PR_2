@@ -41,3 +41,7 @@ def solve_crascal():
         print(e.__str__)
         return redirect("/crascal")
     return dict(matrix=string_matrix, graph=solve[0]["graph"], solve=solve, error="")
+
+@route("/gen_crascal_data")
+def gen_crascal_data():
+    return alg_crascal.generate_matrix_to_solve()

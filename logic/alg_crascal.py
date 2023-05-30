@@ -1,15 +1,58 @@
 # Автор: Панков Василий
 # Дата создания: 29.05.2023
 
-from typing import List, Tuple, Set, Dict, Iterator
+from random import randrange
+
+from typing import List, Tuple, Dict, Iterator
 
 
 def check_matrix(weight_matrix: List[List[float]]):
     """Проверка, на то что матрица соответстыет для данной задачи"""
     for arr in weight_matrix:
         assert len(arr) == len(weight_matrix), "Матрица не является квадратной"
-        for el in arr:
+        for  el in arr:
             assert el >= 0, "В матрице не должно быть отрицательных чисел"
+    for i in range(len(weight_matrix)):
+        for j in range(i, len(weight_matrix)):
+            if (i == j):
+                assert weight_matrix[i][j] == 0, "Диоганаль должна быть равна 0"
+            assert weight_matrix[i][j] == weight_matrix[j][i], "Матрица не симметрична"
+
+
+
+def find_parent(parent: List[int], i: int) -> int:
+    """Вспомогательная функция для нахождения корня дерева
+
+    :param parent: строка матрицы
+    :param i: индекс"""
+    if parent[i] == i:
+        return i
+    return find_parent(parent, parent[i])
+
+
+def union(parent: List[int], rank: List[int], x: int, y: int) -> None:
+    """Вспомогательная функция для объединения двух множеств
+    :param parent: Список, содержащий родительские вершины для каждой вершины
+    :param rank: Список, содержащий ранг (глубину) каждой вершины
+    :param x: Начлальная вершина множества x
+    :param y: Начлальная вершина множества y
+    """
+
+    # Находим корневые вершины (x_root и y_root) для множеств x и y
+    x_root = find_parent(parent, x)
+    y_root = find_parent(parent, y)
+
+    # Если ранг x_root меньше ранга y_root, то x_root становится родительской вершиной для y_root
+    if rank[x_root] < rank[y_root]:
+        parent[x_root] = y_root
+    elif rank[x_root] > rank[y_root]:  # Если ранг x_root больше ранга y_root, то
+        # y_root становится родительской вершиной для x_root
+        parent[y_root] = x_root
+    else:  # Если ранги x_root и y_root равны, то выбирается одно из множеств (например, y_root),
+        # и оно становится родительской вершиной для другого множества (x_root)
+        parent[y_root] = x_root
+        rank[x_root] += 1
+    # После объединения X_root и y_root указывают на одну и ту же вершину
 
 
 def crascal_solve(weight_matrix: List[List[float]]) -> List[Tuple[int, int, float]]:
@@ -19,43 +62,37 @@ def crascal_solve(weight_matrix: List[List[float]]) -> List[Tuple[int, int, floa
     :return Минимальное остовное дерево в формате списка, элементами которого являются кортежи: (Начало, Конец, Вес)
     """
 
+    # Проверяем матрицу
     check_matrix(weight_matrix)
+
+    n = len(weight_matrix)
+    parent = [i for i in range(n)]  # Массив для хранения родительских вершин
+    rank = [0] * n  # Массив для хранения ранга каждой вершины
 
     # Минимальное оставное дерево (начало, конец, длина)
     minimum_spanning_tree: List[Tuple[int, int, float]] = []
-    # Ребра (начало, конец, ребро)
-    edges: List[Tuple[int, int, float]] = []
 
-    # Множество соединенных вершин
-    union_trees: Set[int] = set()
-    # словарь списка изолированных групп вершин
-    groups: Dict[int, List[int]] = {}
-    for i in range(len(weight_matrix)):
-        for j in range(len(weight_matrix)):
+    edges: List[Tuple[int, int, float]] = []  # Ребра (начало, конец, ребро)
+    for i in range(n):
+        for j in range(i + 1, n):
             if weight_matrix[i][j] != 0:
                 edges.append((i, j, weight_matrix[i][j]))
 
     edges.sort(key=lambda a: a[2])
+
     for edge in edges:
-        # Проверка на образование циклов
-        if edge[0] not in union_trees or edge[1] not in union_trees:
-            # Если обеих вершин нет в множестве то добавляем в группу
-            if edge[0] not in union_trees and edge[1] not in union_trees:
-                groups[edge[0]] = [edge[0], edge[1]]
-                groups[edge[1]] = [edge[0], edge[1]]
-            else:
-                # Если первой вершины нет  группах, то добавляем его  существующей и создаём его собственную группу
-                if edge[0] not in groups.keys():
-                    groups[edge[1]].append(edge[0])
-                    groups[edge[0]] = [edge[1]]
-                else:
-                    groups[edge[0]].append(edge[1])
-                    groups[edge[1]] = [edge[0]]
-            minimum_spanning_tree.append(edge)  # Добавляем ребро в остов
-            union_trees.add(edge[0])
-            union_trees.add(edge[1])
+        start, end, weight = edge
+
+        # Проверяем, не создаст ли ребро цикл
+        x = find_parent(parent, start)
+        y = find_parent(parent, end)
+
+        if x != y:
+            minimum_spanning_tree.append((start, end, weight))
+            union(parent, rank, x, y)
 
     return minimum_spanning_tree
+
 
 def parse_matrix_from_string(string: str) -> List[List[float]]:
     """Генерация матрицы из строки
@@ -89,45 +126,52 @@ def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[
 
     :return Возвращает итератор, каждый элемент которого является словарь {"message": str, "graph": str}
     """
+    # Проверяем матрицу
     check_matrix(weight_matrix)
+
+    n = len(weight_matrix)
+    parent = [i for i in range(n)]  # Массив для хранения родительских вершин
+    rank = [0] * n  # Массив для хранения ранга каждой вершины
 
     # Минимальное оставное дерево (начало, конец, длина)
     minimum_spanning_tree: List[Tuple[int, int, float]] = []
-    # Ребра (начало, конец, ребро)
-    edges: List[Tuple[int, int, float]] = []
 
-    # Множество соединенных вершин
-    union_trees: Set[int] = set()
-    # словарь списка изолированных групп вершин
-    groups: Dict[int, List[int]] = {}
-    for i in range(len(weight_matrix)):
-        for j in range(len(weight_matrix)):
+    edges: List[Tuple[int, int, float]] = []  # Ребра (начало, конец, ребро)
+    for i in range(n):
+        for j in range(i + 1, n):
             if weight_matrix[i][j] != 0:
                 edges.append((i, j, weight_matrix[i][j]))
 
     edges.sort(key=lambda a: a[2])
+
     yield {"message": "Начальный граф", "graph": gen_mermaid_graph(edges, minimum_spanning_tree)}
 
     for edge in edges:
-        # Проверка на образование циклов
-        if edge[0] not in union_trees or edge[1] not in union_trees:
-            # Если обеих вершин нет в множестве то добавляем в группу
-            if edge[0] not in union_trees and edge[1] not in union_trees:
-                groups[edge[0]] = [edge[0], edge[1]]
-                groups[edge[1]] = [edge[0], edge[1]]
-            else:
-                # Если первой вершины нет  группах, то добавляем его  существующей и создаём его собственную группу
-                if edge[0] not in groups.keys():
-                    groups[edge[1]].append(edge[0])
-                    groups[edge[0]] = [edge[1]]
-                else:
-                    groups[edge[0]].append(edge[1])
-                    groups[edge[1]] = [edge[0]]
-            minimum_spanning_tree.append(edge)  # Добавляем ребро в остов
-            yield {"message": f"Добавлено ребро {edge[0]}{edge[1]}",
+        start, end, weight = edge
+
+        # Проверяем, не создаст ли ребро цикл
+        x = find_parent(parent, start)
+        y = find_parent(parent, end)
+
+        if x != y:
+            minimum_spanning_tree.append((start, end, weight))
+            yield {"message": f"Добавлено ребро {start}{end} (Вес {weight}).",
                    "graph": gen_mermaid_graph(edges, minimum_spanning_tree)}
-            union_trees.add(edge[0])
-            union_trees.add(edge[1])
+            union(parent, rank, x, y)
 
     yield {"message": "Полученный граф", "graph": gen_mermaid_graph(minimum_spanning_tree, [])}
 
+
+def generate_matrix_to_solve() -> str:
+    """Функция, которая генерирует матрицу для решения алгоритмом Краскала
+
+    :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
+    """
+    size = randrange(2, 12, 1)
+    matrix = [ ["0"] * size for i in range(size) ]
+    for i in range(size):
+        for j in range(i + 1, size):
+            matrix[i][j] = str(randrange(0, 20, 1))
+            matrix[j][i] = matrix[i][j]
+
+    return "\n".join([",".join(row) for row in matrix])
