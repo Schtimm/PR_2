@@ -16,6 +16,7 @@ def home():
 @route("/crascal", method="post")
 @view('alg_crascal')
 def solve_crascal():
+    """Получение POST запроса и решение при верных данных, при плохих данных возвращаем ошибки"""
     matrix: List[List[float]]
     string_matrix = ""
     try:
@@ -45,4 +46,5 @@ def solve_crascal():
 
 @route("/gen_crascal_data")
 def gen_crascal_data():
+    """Генерация данных для решения"""
     return alg_crascal.generate_matrix_to_solve()

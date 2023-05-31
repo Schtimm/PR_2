@@ -64,8 +64,6 @@ def crascal_solve(weight_matrix: List[List[float]]) -> List[Tuple[int, int, floa
     # Проверяем матрицу
     check_matrix(weight_matrix)
 
-    print(matrix_to_string(weight_matrix))
-
     n = len(weight_matrix)
     parent = [i for i in range(n)]  # Массив для хранения родительских вершин
     rank = [0] * n  # Массив для хранения ранга каждой вершины
@@ -100,6 +98,7 @@ def parse_matrix_from_string(string: str) -> List[List[float]]:
 
     :param string: Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
     :return: Матрицу произвольного размере
+    :raise ValueError: если значение не является числом
     """
     return [[float(value) for value in row.split(',')] for row in string.split('\n')]
 
@@ -200,10 +199,10 @@ def generate_matrix_to_solve() -> str:
     :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
     """
     size = randrange(2, 8, 1)
-    matrix = [["0"] * size for _ in range(size)]
+    matrix = [[0.] * size for _ in range(size)]
     for i in range(size):
         for j in range(i + 1, size):
-            matrix[i][j] = str(randrange(0, 20, 1))
+            matrix[i][j] = randrange(0, 20, 1)
             matrix[j][i] = matrix[i][j]
 
-    return "\n".join([",".join(row) for row in matrix])
+    return matrix_to_string(matrix)
