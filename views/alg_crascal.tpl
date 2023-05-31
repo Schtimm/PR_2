@@ -137,10 +137,10 @@
                 </div>
             </div>
             <div class="sm:col-span-6 flex justify-end">
-                <div class="flex gap-x-4">
-                    <button onclick="generateData(event)" class="px-4 py-2 bg-blue-500 text-white rounded shadow">Сгенерировать задачу
+                <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    <button onclick="generateData(event)" class="w-full px-4 py-2 bg-blue-500 text-white rounded shadow rounded-lg">Сгенерировать
                     </button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded shadow">Решить</button>
+                    <button type="submit" class="w-full px-4 py-2 bg-blue-500 text-white rounded shadow rounded-lg">Решить</button>
                 </div>
             </div>
         </div>
@@ -190,7 +190,7 @@
 
 </div>
 <div class="max-w-4xl mx-auto mt-2">
-<button onclick="printSolution()" class="px-4 py-2 bg-blue-500 text-white rounded shadow">Сохранить
+<button onclick="printSolution()" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow">Сохранить
                     </button>
 </div>
 % end
