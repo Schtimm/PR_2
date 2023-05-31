@@ -95,7 +95,7 @@
             var a = document.createElement('a');
             // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
             a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-            a.download = 'somefilename.jpg';
+            a.download = 'solution.jpg';
             a.click();
         });
     }
@@ -149,7 +149,7 @@
 
 </div>
  % if len(solve) > 0:
-<div id="solution" class="max-w-3xl mx-auto">
+<div id="solution" class="max-w-4xl mx-auto">
 
     <h2 class="text-2xl font-semibold text-gray-800 my-12 text-center">Решение</h2>
     <div class="w-full  bg-gray-100 rounded shadow flex items-center justify-center mb-8">
@@ -159,7 +159,7 @@
     </div>
     <h2 class="text-2xl font-semibold text-gray-800 my-12 text-center">Шаги выполнения:</h2>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
-    % for step_i in range(1, len(solve) - 1):
+    % for step_i in range(1, len(solve) - 3):
         <div class="bg-white rounded-lg p-6">
             <div class="w-full bg-gray-100 rounded shadow mb-4 flex items-center justify-center">
                 <div class="mermaid">
@@ -170,21 +170,31 @@
         </div>
     % end
     </div>
-    <p class="text-lg mt-8">Кратчайшее остовное дерево:</p>
-    <div class="w-full  bg-gray-100 rounded shadow mb-8 flex items-center justify-center">
+    <p class="text-lg mt-8 mb-1">Кратчайшее остовное дерево:</p>
+    <div class="w-full bg-gray-100 rounded shadow mb-8 flex items-center justify-center">
         <div class="mermaid">
-             {{solve[-1]["graph"]}}
+             {{solve[-3]["graph"]}}
         </div>
     </div>
+     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
+    <div class="bg-white rounded-lg p-6">
+        <p class="text-lg">Матрица весов ребер:</p>
+        <pre class="h-full w-full text-lg text-center rounded mb-4 flex items-center justify-center whitespace-pre-wrap">{{solve[-2]["matrix"]}}</pre>
+    </div>
+    <div class="bg-white rounded-lg p-6">
+        <p class="text-lg">Сумма весов</p>
+        <p class="text-2xl h-full flex mb-8 items-center justify-center">{{solve[-1]["sum"]}}</p>
+    </div>
+</div>
 
 
 </div>
-<div class="max-w-3xl mx-auto">
+<div class="max-w-4xl mx-auto mt-2">
 <button onclick="printSolution()" class="px-4 py-2 bg-blue-500 text-white rounded shadow">Сохранить
                     </button>
 </div>
 % end
-<div class="max-w-3xl mx-auto">
+<div class="max-w-4xl mx-auto">
     <h2 class="text-2xl font-semibold text-gray-800 my-12 text-center">Пример</h2>
 
     <div class="w-full h-64 bg-gray-100 rounded shadow flex items-center justify-center mb-8">

@@ -64,6 +64,8 @@ def crascal_solve(weight_matrix: List[List[float]]) -> List[Tuple[int, int, floa
     # Проверяем матрицу
     check_matrix(weight_matrix)
 
+    print(matrix_to_string(weight_matrix))
+
     n = len(weight_matrix)
     parent = [i for i in range(n)]  # Массив для хранения родительских вершин
     rank = [0] * n  # Массив для хранения ранга каждой вершины
@@ -111,31 +113,60 @@ def gen_mermaid_graph(edges: List[Tuple[int, int, float]], minimum_spanning_tree
     graph = "graph LR\n"
     # Проходим по всем рёбрам
     for i, edge in enumerate(edges):
-        graph += f"{edge[0] + 1} --{edge[2]}--- {edge[1] + 1}\n"
+        start, end, weight = edge
+        # Для начала с единицы
+        start += 1
+        end += 1
+        graph += f"{start} --{weight}--- {end}\n"
         if edge in minimum_spanning_tree:
-            graph += f"style {edge[0]} fill:#f9f\n"
-            graph += f"style {edge[1]} fill:#f9f\n"
+            graph += f"style {start} fill:#f9f\n"
+            graph += f"style {end} fill:#f9f\n"
             graph += f"linkStyle {i} stroke-width:2px,fill:none,stroke:#f9f\n"
     return graph
 
+
+def edges_to_matrix(edges: List[Tuple[int, int, float]], n: int) -> List[List[float]]:
+    """Функция для получения матрицы из рёбер
+
+    :param edges: ребра, которые представляют собой кортеж (начало, конец, вес)
+    :param n: размер матрицы
+
+    :return Матрица весов рёбер"""
+
+    matrix = [[0.] * n for _ in range(n)]
+
+    for edge in edges:
+        start, end, weight = edge
+        matrix[start][end] = weight
+        matrix[end][start] = weight
+
+    return matrix
+
+
+def matrix_to_string(matrix: List[List[float]]) -> str:
+    """Функция для получения матрицы в строковом виде
+
+    :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки"""
+    return "\n".join([",".join(map(str, row)) for row in matrix])
 
 def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[str, str]]:
     """Данная функция, такая же как crascal_solve, но по шагам. Она является генератором,
     который возвращает с каждым шагом новый граф и какое ребро мы добавили
 
-    :return Возвращает итератор, каждый элемент которого является словарь {"message": str, "graph": str}
+    :return Возвращает итератор, каждый элемент которого является словарь {"message": str, "graph"/"matrix"/"sum": str}
     """
     # Проверяем матрицу
     check_matrix(weight_matrix)
 
-    n = len(weight_matrix)
-    parent = [i for i in range(n)]  # Массив для хранения родительских вершин
-    rank = [0] * n  # Массив для хранения ранга каждой вершины
+
+    n: int = len(weight_matrix)
+    parent: List[int] = [i for i in range(n)]  # Массив для хранения родительских вершин
+    rank: List[int] = [0] * n  # Массив для хранения ранга каждой вершины
 
     # Минимальное оставное дерево (начало, конец, длина)
     minimum_spanning_tree: List[Tuple[int, int, float]] = []
 
-    edges: List[Tuple[int, int, float]] = []  # Ребра (начало, конец, ребро)
+    edges: List[Tuple[int, int, float]] = []  # Ребра (начало, конец, вес)
     for i in range(n):
         for j in range(i + 1, n):
             if weight_matrix[i][j] != 0:
@@ -159,6 +190,8 @@ def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[
             union(parent, rank, x, y)
 
     yield {"message": "Полученный граф", "graph": gen_mermaid_graph(minimum_spanning_tree, [])}
+    yield {"message": "Остовное дерево", "matrix": matrix_to_string(edges_to_matrix(minimum_spanning_tree, n)) }
+    yield {"message": "Сумма", "sum": sum(map(lambda el: el[2], minimum_spanning_tree))}
 
 
 def generate_matrix_to_solve() -> str:
@@ -166,8 +199,8 @@ def generate_matrix_to_solve() -> str:
 
     :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
     """
-    size = randrange(2, 12, 1)
-    matrix = [["0"] * size for i in range(size)]
+    size = randrange(2, 8, 1)
+    matrix = [["0"] * size for _ in range(size)]
     for i in range(size):
         for j in range(i + 1, size):
             matrix[i][j] = str(randrange(0, 20, 1))

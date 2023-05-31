@@ -37,10 +37,11 @@ def solve_crascal():
         return dict(matrix=string_matrix, graph="graph LR\nТут -- будет --- A[ваш граф]",
                     error=e.__str__(), solve=[])
     except Exception as e:
-        #  Если что-то произошло иное
+        #  Если что-то произошло иное, позволяет выполнить отладку, при этом пользователь не поймёт что произошла ошибка
         print(e.__str__)
         return redirect("/crascal")
     return dict(matrix=string_matrix, graph=solve[0]["graph"], solve=solve, error="")
+
 
 @route("/gen_crascal_data")
 def gen_crascal_data():
