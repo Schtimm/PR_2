@@ -1,3 +1,7 @@
+# Автор: Панков Василий
+# Дата создания: 27.05.2023
+
+
 from json import dump, load
 from re import fullmatch
 
@@ -6,7 +10,12 @@ from typing import Dict, List, Tuple
 
 
 def mail_is_correct(mail: str):
-    """Проверка почты на корректность"""
+    """Проверка почты на корректность
+
+    :param mail: почта
+    :rtype: bool or None
+    :return возвращает корректна ли почта или нет
+    """
     return fullmatch(r"[a-zA-Z0-9._&=‘\-+]{1,256}@[a-zA-Z0-9]{1,100}\.[a-zA-Z]{1,7}", mail) is not None
 
 
@@ -14,12 +23,12 @@ def mail_is_correct(mail: str):
 @route('/home')
 @view('home')
 def home():
+    """Домашняя страница"""
     message = ""
     is_error = False
     try:
         message = request.query.message
         is_error = bool(request.query.is_error)
-        print(is_error)
     except Exception:
         pass
 
