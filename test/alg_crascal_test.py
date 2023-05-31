@@ -1,6 +1,9 @@
+# Автор: Панков Василий
+# Дата создания: 27.05.2023
+
 import unittest
 
-from logic.alg_crascal import check_matrix, crascal_solve
+from logic.alg_crascal import check_matrix, crascal_solve, generate_matrix_to_solve, parse_matrix_from_string
 
 
 class TestAlgCrascal(unittest.TestCase):
@@ -45,7 +48,7 @@ class TestAlgCrascal(unittest.TestCase):
                         [5, 19, 0, 12, 0, 17],
                         [8, 7, 4, 16, 17, 0]
                     ],
-
+                    # Диагональ равна 0
                     [[0]],
 
                     [[0, 1, 1, 1, 1],
@@ -53,7 +56,9 @@ class TestAlgCrascal(unittest.TestCase):
                      [1, 2, 0, 3, 3],
                      [1, 2, 3, 0, 4],
                      [1, 2, 3, 4, 0]
-                     ]
+                     ],
+                    # Проверки функции генератора и парсера
+                    parse_matrix_from_string(generate_matrix_to_solve())
                     ]
         for el in matrices:
             self.assertIsNone(check_matrix(el))
