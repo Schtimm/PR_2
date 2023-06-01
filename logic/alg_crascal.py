@@ -149,6 +149,7 @@ def matrix_to_string(matrix: List[List[float]]) -> str:
     :return Строка в которой через запятую перечислены элементы матрицы, а через \\n строки"""
     return "\n".join([",".join(map(str, row)) for row in matrix])
 
+
 def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[str, str]]:
     """Данная функция, такая же как crascal_solve, но по шагам. Она является генератором,
     который возвращает с каждым шагом новый граф и какое ребро мы добавили
@@ -157,7 +158,6 @@ def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[
     """
     # Проверяем матрицу
     check_matrix(weight_matrix)
-
 
     n: int = len(weight_matrix)
     parent: List[int] = [i for i in range(n)]  # Массив для хранения родительских вершин
@@ -190,7 +190,7 @@ def crascal_solve_with_steps(weight_matrix: List[List[float]]) -> Iterator[Dict[
             union(parent, rank, x, y)
 
     yield {"message": "Полученный граф", "graph": gen_mermaid_graph(minimum_spanning_tree, [])}
-    yield {"message": "Остовное дерево", "matrix": matrix_to_string(edges_to_matrix(minimum_spanning_tree, n)) }
+    yield {"message": "Остовное дерево", "matrix": matrix_to_string(edges_to_matrix(minimum_spanning_tree, n))}
     yield {"message": "Сумма", "sum": sum(map(lambda el: el[2], minimum_spanning_tree))}
 
 
