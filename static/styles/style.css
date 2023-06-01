@@ -16,6 +16,12 @@ textarea{
     width: 34px;
     height: 34px;
 }
+<<<<<<< HEAD
+
+ol{
+    width: max-content;
+    text-align: left;
+=======
 /*Для того что печатать только решение*/
 @media print {
     #solution {
@@ -30,4 +36,5 @@ textarea{
         font-size: 14px;
         line-height: 18px;
     }
+>>>>>>> 4bd6e06b04defb3839c4810401c3367cf5e45be9
 }
