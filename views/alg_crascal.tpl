@@ -123,7 +123,7 @@
         <textarea id="matrix" name="matrix" oninput="this.value = formatMatrix(this.value); "
                   onchange="if (isCorrectMatrix(this.value)) drawGraph(this.value);"
                   class="w-full h-32 p-2 bg-white rounded shadow h-full"
-                  placeholder="Введите матрицу весов ребер, разделяя элементы запятыми и строки переносами строки. Матрица должна быть квадратной и симметричной, а диогналь равна 0. Пример:
+                  placeholder="Введите матрицу весов ребер, разделяя элементы запятыми и строки переносами строки. Матрица должна быть квадратной и симметричной, а диагональ равна 0. Пример:
 0,1
 1,0">{{matrix}}</textarea>
             </div>
@@ -178,11 +178,11 @@
     </div>
      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
     <div class="bg-white rounded-lg p-6">
-        <p class="text-lg">Матрица весов ребер:</p>
+        <p class="text-lg">Матрица весов рёбер:</p>
         <pre class="h-full w-full text-lg text-center rounded mb-4 flex items-center justify-center whitespace-pre-wrap">{{solve[-2]["matrix"]}}</pre>
     </div>
     <div class="bg-white rounded-lg p-6">
-        <p class="text-lg">Сумма весов</p>
+        <p class="text-lg">Сумма весов рёбер:</p>
         <p class="text-2xl h-full flex mb-8 items-center justify-center">{{solve[-1]["sum"]}}</p>
     </div>
 </div>
