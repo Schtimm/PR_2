@@ -7,7 +7,8 @@ from typing import List, Tuple, Dict, Iterator
 
 
 def check_matrix(weight_matrix: List[List[float]]):
-    """Проверка, на то что матрица соответстыет для данной задачи"""
+    """Проверка, на то что матрица соответствует для данной задачи"""
+    assert any(any(row) for row in weight_matrix), "Матрица состоит из нулей, это не является графом"
     for arr in weight_matrix:
         assert len(arr) == len(weight_matrix), "Матрица не является квадратной"
         for el in arr:
@@ -15,7 +16,7 @@ def check_matrix(weight_matrix: List[List[float]]):
     for i in range(len(weight_matrix)):
         for j in range(i, len(weight_matrix)):
             if i == j:
-                assert weight_matrix[i][j] == 0, "Диоганаль должна быть равна 0"
+                assert weight_matrix[i][j] == 0, "Диагональ должна быть равна 0"
             assert weight_matrix[i][j] == weight_matrix[j][i], "Матрица не симметрична"
 
 
@@ -97,7 +98,7 @@ def parse_matrix_from_string(string: str) -> List[List[float]]:
     """Генерация матрицы из строки
 
     :param string: Строка в которой через запятую перечислены элементы матрицы, а через \\n строки
-    :return: Матрицу произвольного размере
+    :return: Матрицу произвольного размера
     :raise ValueError: если значение не является числом
     """
     return [[float(value) for value in row.split(',')] for row in string.split('\n')]
