@@ -21,7 +21,7 @@ def mail_is_correct(mail: str):
 
 @route('/')
 @route('/home')
-@view('home')
+@view('index')
 def home():
     """Домашняя страница"""
     message = ""
@@ -66,7 +66,7 @@ def get_message():
     if mail.strip() == "" or username.strip() == "" or quest.strip() == "":
         return redirect("/?message=Некоторые поля не заполнены&is_error=True#message_form")
     # проверка на корректность почты
-    if mail_is_correct(mail) is None:
+    if not mail_is_correct(mail):
         return redirect("/?message=Введённая почта некорректна&is_error=True#message_form")
 
     # загрузка вопросов из файла
