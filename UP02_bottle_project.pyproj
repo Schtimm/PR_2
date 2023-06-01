@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="logic\breadth_first.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes.py" />
     <Compile Include="views_python\alg_crascal_page.py" />
     <Compile Include="views_python\authors_page.py" />
@@ -39,10 +42,12 @@
     <Compile Include="views_python\home_page.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="logic\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
     <Folder Include="static\fonts\" />
     <Folder Include="static\scripts\" />
+    <Folder Include="static\styles\" />
     <Folder Include="views\" />
     <Folder Include="views_python\" />
     <Folder Include="views_python\__pycache__\" />
@@ -71,6 +76,7 @@
     <Content Include="static\scripts\respond.js" />
     <Content Include="static\scripts\respond.min.js" />
     <Content Include="static\scripts\_references.js" />
+    <Content Include="static\styles\style.css" />
     <Content Include="views\about.tpl" />
     <Content Include="views\alg_crascal.tpl" />
     <Content Include="views\authors.tpl" />
