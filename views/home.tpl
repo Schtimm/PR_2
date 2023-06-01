@@ -3,7 +3,7 @@
 
 <header class="py-16 bg-blue-500 text-white">
     <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-semibold mb-4">Добро пожаловать на страницу Графовых Алгоритмов</h1>
+        <h1 class="text-4xl font-semibold mb-4">Добро пожаловать на страницу Решения графов </h1>
         <p class="text-lg">Исследуйте мир графовых алгоритмов и решайте задачи, связанные с графами.</p>
     </div>
 </header>
@@ -11,7 +11,7 @@
 <!-- Секция с особенностями -->
 <section id="features" class="py-20">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-semibold text-gray-800 mb-12">Особенности</h2>
+        <h2 class="text-3xl font-semibold text-gray-800 mb-12">Варианты решений</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <!-- Особенность 1 -->
@@ -66,7 +66,6 @@
 <section id="contact" class="py-20">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-semibold text-gray-800 mb-12">Контакты</h2>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
                 <p class="text-gray-700 mb-6">Если у вас возникли вопросы или вам нужна помощь, не стесняйтесь связаться
@@ -77,7 +76,7 @@
                 </ul>
             </div>
             <div>
-                <form>
+                <form id="message_form" action="/send_message" method="post">
                     <div class="mb-4">
                         <label for="name" class="text-gray-700">Ваше имя:</label>
                         <input type="text" id="name" name="name"
@@ -97,5 +96,27 @@
                 </form>
             </div>
         </div>
+        % if len(message) != 0:
+        % if is_error:
+        <div class="mt-10" role="alert">
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                Ошибка
+            </div>
+            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                <p>{{message}}</p>
+            </div>
+        </div>
+        % else:
+        <div class="mt-10 bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+        <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                <div>
+                <p class="font-bold">Поздравляем</p>
+                <p class="text-sm">{{message}}</p>
+                </div>
+            </div>
+        </div>
+        % end
+        % end
     </div>
 </section>
